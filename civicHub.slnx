@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="AdminAuthentication/Authentication.csproj" />
+  <Project Path="APIGateway/APIGateway.csproj" />
+  <Project Path="CivicHubAdmin/CivicHubAdmin.csproj" />
+  <Project Path="CivicHubKiosk/CivicHubKiosk.csproj" />
+  <Project Path="CivicHubReport/CivicHubReport.csproj" />
+  <Project Path="SharedLibrary/SharedLibrary.csproj" />
+</Solution>

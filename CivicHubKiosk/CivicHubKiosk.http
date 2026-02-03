@@ -1,0 +1,6 @@
+@CivicHubKiosk_HostAddress = http://localhost:5150
+
+GET {{CivicHubKiosk_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

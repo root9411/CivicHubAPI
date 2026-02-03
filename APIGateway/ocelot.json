@@ -1,0 +1,73 @@
+{
+  "Routes": [
+
+
+
+    // Authentication Services
+    {
+      "DownstreamPathTemplate": "/api/Authentication",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Authentication",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+
+    // CivicHub Services
+    {
+      "DownstreamPathTemplate": "/api/Dashboard",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Dashboard",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+
+
+
+    // Kiosk Services
+    {
+      "DownstreamPathTemplate": "/api/Kiosk",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Kiosk",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+
+
+    // Report Services
+    {
+      "DownstreamPathTemplate": "/api/Report",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Report",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    }
+
+
+
+
+
+  ],
+   "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7000"
+  }
+}
