@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary;
+using SharedLibrary.Application.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,20 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddDbContext<KioskDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(
+        typeof(CreateKioskCommand).Assembly));
+
+builder.Services.AddScoped<IKioskRepository, KioskRepository>();
+builder.Services.AddScoped<IKioskReadRepository, KioskRepository>();
+
+
 
 var app = builder.Build();
 

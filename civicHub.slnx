@@ -4,5 +4,8 @@
   <Project Path="CivicHubAdmin/CivicHubAdmin.csproj" />
   <Project Path="CivicHubKiosk/CivicHubKiosk.csproj" />
   <Project Path="CivicHubReport/CivicHubReport.csproj" />
+  <Project Path="SharedLibrary.Application/SharedLibrary.Application.csproj" />
+  <Project Path="SharedLibrary.Domain/SharedLibrary.Domain.csproj" />
+  <Project Path="SharedLibrary.Infrastructure/SharedLibrary.Infrastructure.csproj" />
   <Project Path="SharedLibrary/SharedLibrary.csproj" />
 </Solution>

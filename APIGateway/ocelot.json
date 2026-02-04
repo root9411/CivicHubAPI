@@ -1,11 +1,9 @@
 {
   "Routes": [
 
-
-
-    // Authentication Services
+    // ================= Authentication =================
     {
-      "DownstreamPathTemplate": "/api/Authentication",
+      "DownstreamPathTemplate": "/api/Authentication/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -13,13 +11,13 @@
           "Port": 7001
         }
       ],
-      "UpstreamPathTemplate": "/api/Authentication",
+      "UpstreamPathTemplate": "/api/Authentication/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
-    // CivicHub Services
+    // ================= CivicHub Admin =================
     {
-      "DownstreamPathTemplate": "/api/Dashboard",
+      "DownstreamPathTemplate": "/api/Dashboard/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -27,15 +25,13 @@
           "Port": 7002
         }
       ],
-      "UpstreamPathTemplate": "/api/Dashboard",
+      "UpstreamPathTemplate": "/api/Dashboard/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
-
-
-    // Kiosk Services
+    // ================= KIOSK SERVICE =================
     {
-      "DownstreamPathTemplate": "/api/Kiosk",
+      "DownstreamPathTemplate": "/api/kiosk/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -43,14 +39,13 @@
           "Port": 7003
         }
       ],
-      "UpstreamPathTemplate": "/api/Kiosk",
+      "UpstreamPathTemplate": "/api/kiosk/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
-
-    // Report Services
+    // ================= REPORT SERVICE =================
     {
-      "DownstreamPathTemplate": "/api/Report",
+      "DownstreamPathTemplate": "/api/Report/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -58,16 +53,12 @@
           "Port": 7004
         }
       ],
-      "UpstreamPathTemplate": "/api/Report",
+      "UpstreamPathTemplate": "/api/Report/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     }
-
-
-
-
-
   ],
-   "GlobalConfiguration": {
+
+  "GlobalConfiguration": {
     "BaseUrl": "https://localhost:7000"
   }
 }
