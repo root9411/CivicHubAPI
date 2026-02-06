@@ -8,7 +8,10 @@ public class KioskDbContext : DbContext
         : base(options) { }
 
     public DbSet<InvKioskDetail> Kiosks => Set<InvKioskDetail>();
-    public DbSet<KioskLanguage> KioskLanguages => Set<KioskLanguage>();
-    public DbSet<KioskDepartment> Departments => Set<KioskDepartment>();
-    public DbSet<KioskService> KioskServices => Set<KioskService>();
+    public DbSet<InvKioskLanguage> KioskLanguages => Set<InvKioskLanguage>();
+    public DbSet<InvKioskDepartment> Departments => Set<InvKioskDepartment>();
+    public DbSet<InvKioskService> KioskServices => Set<InvKioskService>();
+    public DbSet<InvKioskTrackingDetail> KioskTrackingDetail => Set<InvKioskTrackingDetail>();
+    public DbSet<InvKioskSessionUser> KioskSessionUser => Set<InvKioskSessionUser>();
+
 }

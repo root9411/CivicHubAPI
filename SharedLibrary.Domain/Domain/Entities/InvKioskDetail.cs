@@ -12,8 +12,8 @@ namespace SharedLibrary.Domain.Entities
         public bool IsActive { get; set; }
         public DateTime CreationDate { get; set; }
 
-        public ICollection<KioskLanguage> Languages { get; set; }
-        public ICollection<KioskService> Services { get; set; }
+        public ICollection<InvKioskLanguage> Languages { get; set; }
+        public ICollection<InvKioskService> Services { get; set; }
 
 
         protected InvKioskDetail() { }

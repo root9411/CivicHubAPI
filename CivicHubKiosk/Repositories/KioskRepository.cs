@@ -7,22 +7,22 @@ public class KioskRepository :
     IKioskRepository,
     IKioskReadRepository
 {
-    private readonly KioskDbContext _context;
+    private readonly CivicHubDbContext _context;
 
-    public KioskRepository(KioskDbContext context)
+    public KioskRepository(CivicHubDbContext context)
     {
         _context = context;
     }
 
     public async Task AddAsync(InvKioskDetail kiosk)
     {
-        _context.Kiosks.Add(kiosk);
+        _context.InvKioskDetail.Add(kiosk);
         await _context.SaveChangesAsync();
     }
 
     public async Task<List<KioskDto>> GetActiveAsync()
     {
-        return await _context.Kiosks
+        return await _context.InvKioskDetail
             .Where(x => x.IsActive)
             .Select(x => new KioskDto
             {
@@ -34,7 +34,7 @@ public class KioskRepository :
 
     public async Task<List<LanguageDto>> GetLanguagesAsync(int kioskId)
     {
-        return await _context.KioskLanguages
+        return await _context.InvKioskLanguage
             .Where(x => x.KioskId == kioskId)
             .Select(x => new LanguageDto
             {
@@ -47,7 +47,7 @@ public class KioskRepository :
 
     public async Task<List<DepartmentDto>> GetDepartmentsAsync()
     {
-        return await _context.Departments
+        return await _context.InvKioskDepartment
             .Select(x => new DepartmentDto
             {
                 Id = x.Id,
@@ -60,7 +60,7 @@ public class KioskRepository :
     public async Task<List<ServiceDto>> GetServicesAsync(
         int kioskId, int? departmentId)
     {
-        var query = _context.KioskServices
+        var query = _context.InvKioskService
             .Where(x => x.KioskId == kioskId);
 
         if (departmentId.HasValue)

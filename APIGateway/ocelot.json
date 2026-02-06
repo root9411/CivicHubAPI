@@ -31,6 +31,18 @@
 
     // ================= KIOSK SERVICE =================
     {
+      "DownstreamPathTemplate": "/api/kiosk",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/kiosk",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/kiosk/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

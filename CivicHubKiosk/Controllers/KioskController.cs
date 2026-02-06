@@ -1,17 +1,19 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Application.Features.Kiosks.Commands;
-using SharedLibrary.Application.Features.Kiosks.Queries;
+using SharedLibrary.Application.Interface;
 
 [ApiController]
 [Route("api/kiosk")]
 public class KioskController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IKioskReadRepository _kioskReadRepository;
 
-    public KioskController(IMediator mediator)
+    public KioskController(IMediator mediator, IKioskReadRepository kioskReadRepository)
     {
         _mediator = mediator;
+        _kioskReadRepository = kioskReadRepository;
     }
 
     [HttpPost]
@@ -28,6 +30,15 @@ public class KioskController : ControllerBase
         return Ok(kiosks);
     }
 
+
+    [HttpGet("IsActive")]
+    public async Task<IActionResult> IsActive([FromQuery] string encryptedKioskIP)
+    {
+        var isActive = true;
+        return Ok(isActive);
+    }
+
+
     // GET: api/kiosk/lookup/languages/1
     [HttpGet("languages/{kioskId}")]
     public async Task<IActionResult> GetLanguages(int kioskId)
@@ -40,8 +51,12 @@ public class KioskController : ControllerBase
     [HttpGet("departments")]
     public async Task<IActionResult> GetDepartments()
     {
-        return Ok(await _mediator.Send(
-            new GetDepartmentsQuery()));
+
+        var kiosks = await _kioskReadRepository.GetDepartmentsAsync();
+        return Ok();
+
+        //return Ok(await _mediator.Send(
+        //    new GetDepartmentsQuery()));
     }
 
     // GET: api/kiosk/lookup/services?kioskId=1&departmentId=2

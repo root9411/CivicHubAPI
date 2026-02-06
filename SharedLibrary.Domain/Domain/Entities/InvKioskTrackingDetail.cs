@@ -15,7 +15,7 @@ namespace SharedLibrary.Domain.Entities
         public InvKioskSessionUser SessionUser { get; private set; }
 
         public int? KioskServiceId { get; private set; }
-        public KioskService KioskService { get; private set; }
+        public InvKioskService KioskService { get; private set; }
 
         public DateTime SessionStartTime { get; private set; }
         public DateTime? SessionEndTime { get; private set; }

@@ -13,9 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddDbContext<KioskDbContext>(options =>
+builder.Services.AddDbContext<CivicHubDbContext>(options =>
     options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("SharedLibrary.Infrastructure")
+    ));
 
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(

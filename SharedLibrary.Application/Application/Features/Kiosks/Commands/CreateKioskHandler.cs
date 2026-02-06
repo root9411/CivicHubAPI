@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Application.Dtos;
 using SharedLibrary.Application.Interface;
 using SharedLibrary.Domain.Entities;
