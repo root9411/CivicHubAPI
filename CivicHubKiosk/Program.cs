@@ -1,6 +1,9 @@
+using CivicHubKiosk.Repositories;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary;
+using SharedLibrary.Application.Application.Interface;
 using SharedLibrary.Application.Interface;
+using SharedLibrary.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +28,8 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddScoped<IKioskRepository, KioskRepository>();
 builder.Services.AddScoped<IKioskReadRepository, KioskRepository>();
-
+builder.Services.AddScoped<IEncryptionService, EncryptionService>();
+builder.Services.AddScoped<IPageRepository, PageRepository>();
 
 
 var app = builder.Build();

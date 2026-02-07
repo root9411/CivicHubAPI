@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Application.Features.Kiosks.Commands;
 using SharedLibrary.Application.Interface;
+using SharedLibrary.Interfaces;
 
 [ApiController]
 [Route("api/kiosk")]
@@ -9,9 +10,11 @@ public class KioskController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly IKioskReadRepository _kioskReadRepository;
+    private readonly IEncryptionService _encryptionService;
 
-    public KioskController(IMediator mediator, IKioskReadRepository kioskReadRepository)
+    public KioskController(IMediator mediator, IKioskReadRepository kioskReadRepository, IEncryptionService encryptionService)
     {
+        _encryptionService = encryptionService;
         _mediator = mediator;
         _kioskReadRepository = kioskReadRepository;
     }
@@ -34,6 +37,7 @@ public class KioskController : ControllerBase
     [HttpGet("IsActive")]
     public async Task<IActionResult> IsActive([FromQuery] string encryptedKioskIP)
     {
+        var data = _encryptionService.DecryptData<string>(encryptedKioskIP);
         var isActive = true;
         return Ok(isActive);
     }
