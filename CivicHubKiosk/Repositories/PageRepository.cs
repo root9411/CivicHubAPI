@@ -1,7 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
+using System.Text.Json;
 using SharedLibrary.Application.Application.Dtos;
 using SharedLibrary.Application.Application.Interface;
+using SharedLibrary.Application.Dtos;
+
+
 
 namespace CivicHubKiosk.Repositories
 {
@@ -31,26 +35,26 @@ namespace CivicHubKiosk.Repositories
                  {
                      ComponentType = c.ComponentType ?? "",
                      SortOrder = sc.SortOrder,
-                     //Config = sc.Config ?? "{}", 
+                     Config = sc.Config ?? "", 
                      ContentKey = cc != null ? cc.ContentKey : null,
                      ContentValue = cc != null ? cc.ContentValue : null
                  })
                 .ToListAsync();   
 
+            
             var page = new PageDto
             {
                 PageKey = pageKey,
                 Components = data
-                    .GroupBy(x => new { x.SortOrder, x.ComponentType })
+                    .GroupBy(x => new { x.SortOrder, x.ComponentType,x.Config })
                     .Select(g => new ComponentDto
                     {
                         Type = g.Key.ComponentType,
                         Order = g.Key.SortOrder,
-                        
 
-                        //Config = string.IsNullOrWhiteSpace(g.Key.Config)
-                        //    ? null
-                        //    : JsonSerializer.Deserialize<Dictionary<string, object>>(g.Key.Config),
+                        Config = string.IsNullOrWhiteSpace(g.Key.Config)
+                        ? null
+                        : JsonSerializer.Deserialize<Dictionary<string, object>>(g.Key.Config),
 
                         Text = g
                             .Where(x => x.ContentKey != null)
@@ -65,6 +69,26 @@ namespace CivicHubKiosk.Repositories
 
             return page;
         }
+
+
+
+        public async Task<List<LanguageListDto>> GetLanguagesAsync()
+        {
+            return await _context.InvLanguageList
+                .Where(l => l.IsActive)
+                .Select(l => new LanguageListDto
+                {
+                    Id = l.Id,
+                    LanguageText = l.LanguageText,
+                    LanguageCode = l.LanguageCode,
+                    LangFlag = l.LangFlag,
+                    config = l.config,
+                    IsActive = l.IsActive
+                })
+                .ToListAsync();
+        }
+
+
 
 
 

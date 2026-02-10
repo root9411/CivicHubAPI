@@ -25,6 +25,7 @@ public class CivicHubDbContext : DbContext
     public DbSet<SectionComponent> SectionComponents { get; set; }
     public DbSet<ComponentContent> ComponentContent { get; set; }
 
+    public DbSet<InvLanguageList> InvLanguageList { get; set; }
 
 
 
