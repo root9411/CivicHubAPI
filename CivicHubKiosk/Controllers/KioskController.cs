@@ -72,4 +72,5 @@ public class KioskController : ControllerBase
         return Ok(await _mediator.Send(
             new GetServicesQuery(kioskId, departmentId)));
     }
+
 }

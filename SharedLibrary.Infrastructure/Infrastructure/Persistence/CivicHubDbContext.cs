@@ -26,6 +26,14 @@ public class CivicHubDbContext : DbContext
     public DbSet<ComponentContent> ComponentContent { get; set; }
 
 
+
+
+    // Electricity Board related entities
+    public DbSet<ElectricityBoard> ElectricityBoards { get; set; }
+    public DbSet<WaterBoard> WaterBoards { get; set; }
+    public DbSet<GasBoard> GasBoards { get; set; }
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(CivicHubDbContext).Assembly);

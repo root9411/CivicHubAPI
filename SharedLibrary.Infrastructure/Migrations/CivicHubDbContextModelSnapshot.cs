@@ -21,6 +21,177 @@ namespace SharedLibrary.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.Component", b =>
+                {
+                    b.Property<int>("ComponentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComponentId"));
+
+                    b.Property<string>("ComponentName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ComponentType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("DefaultConfig")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ComponentId");
+
+                    b.ToTable("Components");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.ComponentContent", b =>
+                {
+                    b.Property<int>("ContentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContentId"));
+
+                    b.Property<string>("ContentKey")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ContentValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("SectionComponentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ContentId");
+
+                    b.HasIndex("SectionComponentId");
+
+                    b.ToTable("ComponentContent");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.InvPage", b =>
+                {
+                    b.Property<int>("PageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PageId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Layout")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PageKey")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Route")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("PageId");
+
+                    b.HasIndex("PageKey")
+                        .IsUnique();
+
+                    b.ToTable("InvPages");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.PageSection", b =>
+                {
+                    b.Property<int>("SectionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SectionId"));
+
+                    b.Property<string>("CssClass")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SectionKey")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("SectionId");
+
+                    b.HasIndex("PageId");
+
+                    b.ToTable("PageSections");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.SectionComponent", b =>
+                {
+                    b.Property<int>("SectionComponentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SectionComponentId"));
+
+                    b.Property<int>("ComponentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Config")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SectionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("SectionComponentId");
+
+                    b.HasIndex("ComponentId");
+
+                    b.HasIndex("SectionId");
+
+                    b.ToTable("SectionComponents");
+                });
+
             modelBuilder.Entity("SharedLibrary.Domain.Entities.InvKioskDepartment", b =>
                 {
                     b.Property<int>("Id")
@@ -184,6 +355,47 @@ namespace SharedLibrary.Infrastructure.Migrations
                     b.ToTable("InvKioskTrackingDetail");
                 });
 
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.ComponentContent", b =>
+                {
+                    b.HasOne("SharedLibrary.Domain.Domain.Entities.SectionComponent", "SectionComponent")
+                        .WithMany("ComponentContents")
+                        .HasForeignKey("SectionComponentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SectionComponent");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.PageSection", b =>
+                {
+                    b.HasOne("SharedLibrary.Domain.Domain.Entities.InvPage", "InvPage")
+                        .WithMany("PageSections")
+                        .HasForeignKey("PageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("InvPage");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.SectionComponent", b =>
+                {
+                    b.HasOne("SharedLibrary.Domain.Domain.Entities.Component", "Component")
+                        .WithMany("SectionComponents")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SharedLibrary.Domain.Domain.Entities.PageSection", "PageSection")
+                        .WithMany("SectionComponents")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Component");
+
+                    b.Navigation("PageSection");
+                });
+
             modelBuilder.Entity("SharedLibrary.Domain.Entities.InvKioskLanguage", b =>
                 {
                     b.HasOne("SharedLibrary.Domain.Entities.InvKioskDetail", "Kiosk")
@@ -225,6 +437,26 @@ namespace SharedLibrary.Infrastructure.Migrations
                     b.Navigation("KioskService");
 
                     b.Navigation("SessionUser");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.Component", b =>
+                {
+                    b.Navigation("SectionComponents");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.InvPage", b =>
+                {
+                    b.Navigation("PageSections");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.PageSection", b =>
+                {
+                    b.Navigation("SectionComponents");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Domain.Domain.Entities.SectionComponent", b =>
+                {
+                    b.Navigation("ComponentContents");
                 });
 
             modelBuilder.Entity("SharedLibrary.Domain.Entities.InvKioskDetail", b =>

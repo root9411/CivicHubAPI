@@ -13,5 +13,4 @@ public class KioskDbContext : DbContext
     public DbSet<InvKioskService> KioskServices => Set<InvKioskService>();
     public DbSet<InvKioskTrackingDetail> KioskTrackingDetail => Set<InvKioskTrackingDetail>();
     public DbSet<InvKioskSessionUser> KioskSessionUser => Set<InvKioskSessionUser>();
-
 }

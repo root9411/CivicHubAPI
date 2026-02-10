@@ -30,6 +30,9 @@ builder.Services.AddScoped<IKioskRepository, KioskRepository>();
 builder.Services.AddScoped<IKioskReadRepository, KioskRepository>();
 builder.Services.AddScoped<IEncryptionService, EncryptionService>();
 builder.Services.AddScoped<IPageRepository, PageRepository>();
+builder.Services.AddScoped<IElectricityRepository, ElectricityRepository>();
+builder.Services.AddScoped<IWaterReppository, WaterRepository > ();
+builder.Services.AddScoped<IGasRepository, GasRepository>();
 
 
 var app = builder.Build();
