@@ -11,6 +11,8 @@ namespace SharedLibrary.Application.Application.Interface
 
         Task<PageDto> GetPageContantAsync(string pageKey);
 
+        Task<List<LanguageListDto>> GetLanguagesAsync();
+
 
     }
 }

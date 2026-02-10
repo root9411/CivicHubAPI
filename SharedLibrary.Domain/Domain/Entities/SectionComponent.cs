@@ -19,7 +19,7 @@ namespace SharedLibrary.Domain.Domain.Entities
 
         public int SortOrder { get; set; }
 
-        public string Config { get; set; } // JSON overrides
+        public string? Config { get; set; } // JSON overrides
 
         // Navigation
         public PageSection PageSection { get; set; }

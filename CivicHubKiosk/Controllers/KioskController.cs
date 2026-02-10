@@ -43,7 +43,6 @@ public class KioskController : ControllerBase
     }
 
 
-    // GET: api/kiosk/lookup/languages/1
     [HttpGet("languages/{kioskId}")]
     public async Task<IActionResult> GetLanguages(int kioskId)
     {
@@ -51,7 +50,6 @@ public class KioskController : ControllerBase
             new GetLanguagesQuery(kioskId)));
     }
 
-    // GET: api/kiosk/lookup/departments
     [HttpGet("departments")]
     public async Task<IActionResult> GetDepartments()
     {
@@ -63,7 +61,6 @@ public class KioskController : ControllerBase
         //    new GetDepartmentsQuery()));
     }
 
-    // GET: api/kiosk/lookup/services?kioskId=1&departmentId=2
     [HttpGet("services")]
     public async Task<IActionResult> GetServices(
         [FromQuery] int kioskId,

@@ -19,8 +19,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<CivicHubDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        b => b.MigrationsAssembly("SharedLibrary.Infrastructure")
-    ));
+        sqlOptions =>
+        {
+            sqlOptions.MigrationsAssembly("SharedLibrary.Infrastructure");
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null
+            );
+        }
+    )
+);
+
 
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(

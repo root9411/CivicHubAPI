@@ -14,7 +14,8 @@ namespace SharedLibrary.Application.Application.Dtos
     {
         public string Type { get; set; }
         public int Order { get; set; }
+        //public string DynamicCss { get; set; }
         public Dictionary<string, string> Text { get; set; }
-        public Dictionary<string, object> Config { get; set; }
+        public Dictionary<string, object>? Config { get; set; }
     }
 }
